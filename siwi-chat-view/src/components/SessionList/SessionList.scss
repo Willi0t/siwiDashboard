@@ -10,7 +10,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.75rem;
-    padding: 0.85rem 1rem;
+    padding: var(--panel-header-padding);
+    min-height: var(--panel-header-height);
     border-bottom: 1px solid var(--border-soft);
     background: #fafafa;
     box-shadow: inset 0 -1px 0 rgba(12, 44, 92, 0.08);
@@ -40,32 +41,53 @@
 
 .session-tabs {
     display: inline-flex;
-    gap: 0.35rem;
-    background: #e7edf6;
-    padding: 0.35rem 0.4rem;
-    border-radius: 999px;
-    border: 1px solid #d8e1ef;
+    gap: 1.1rem;
+    padding: 0.35rem 0.45rem;
+    align-items: flex-end;
 }
 
 .session-tabs button {
+    position: relative;
     border: none;
     background: transparent;
-    padding: 0.35rem 0.7rem;
-    border-radius: 999px;
-    font-weight: 700;
+    padding: 0.35rem 0.1rem 0.55rem;
+    font-weight: 800;
     color: #1f3f68;
     cursor: pointer;
-    transition: all 120ms ease;
+    transition: color 160ms ease;
+}
+
+.session-tabs button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.15rem;
+    width: 100%;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #1f4d8a, #0f2f55);
+    transform-origin: left;
+    transform: scaleX(0);
+    opacity: 0.4;
+    transition: transform 160ms ease, opacity 160ms ease;
+}
+
+.session-tabs button:hover {
+    color: #102c4f;
+}
+
+.session-tabs button:hover::after {
+    transform: scaleX(1);
+    opacity: 0.6;
 }
 
 .session-tabs button.active {
-    background: #d5e1f2;
-    color: #122b4a;
-    box-shadow: inset 0 0 0 1px rgba(18, 43, 74, 0.1);
+    color: #0e2e55;
 }
 
-.session-tabs button:hover:not(.active) {
-    background: rgba(18, 43, 74, 0.06);
+.session-tabs button.active::after {
+    transform: scaleX(1);
+    opacity: 1;
 }
 
 #session-items {

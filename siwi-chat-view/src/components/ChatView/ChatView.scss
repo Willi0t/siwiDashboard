@@ -6,7 +6,8 @@
 }
 
 #chat-header {
-    padding: 1rem 1.2rem;
+    padding: var(--panel-header-padding);
+    min-height: var(--panel-header-height);
     border-bottom: 1px solid var(--border-color);
     font-size: 0.9rem;
     display: flex;
