@@ -1,4 +1,4 @@
-import './StatusHeader.css'
+import './StatusHeader.scss'
 
 function StatusHeader({ status, onFileChange }) {
   return (

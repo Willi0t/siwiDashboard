@@ -1,7 +1,7 @@
 import ChatView from './components/ChatView/ChatView'
 import SessionList from './components/SessionList/SessionList'
 import StatusHeader from './components/StatusHeader/StatusHeader'
-import './App.css'
+import './App.scss'
 import useSessions from './hooks/useSessions'
 
 function App() {
