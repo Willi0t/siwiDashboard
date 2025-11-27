@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import './MessageList.css'
+import './MessageList.scss'
 
 function MessageList({ transcript }) {
   const parts = useMemo(() => {

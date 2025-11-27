@@ -1,4 +1,4 @@
-import './SessionList.css'
+import './SessionList.scss'
 
 function SessionList({ sessions, onSelect, activeSessionId }) {
   if (!sessions.length) {
