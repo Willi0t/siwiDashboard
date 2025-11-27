@@ -1,8 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import './SessionList.scss'
 
 function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
   const [activeTab, setActiveTab] = useState('new')
+  const [pendingToggle, setPendingToggle] = useState(null)
+  const toggleTimeoutRef = useRef(null)
 
   const { newSessions, reviewedSessions } = useMemo(() => {
     const newOnes = sessions.filter((session) => !session.isReviewed)
@@ -24,6 +26,31 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
   }
 
   const { title, empty } = tabContent[activeTab]
+
+  const handleToggleReviewed = (session) => {
+    const nextState = !session.isReviewed
+
+    if (toggleTimeoutRef.current) {
+      clearTimeout(toggleTimeoutRef.current)
+    }
+
+    setPendingToggle({ id: session.SessionId, direction: nextState ? 'to-reviewed' : 'to-new' })
+
+    toggleTimeoutRef.current = setTimeout(() => {
+      onMarkReviewed(session.SessionId, nextState)
+      setPendingToggle(null)
+      toggleTimeoutRef.current = null
+    }, 220)
+  }
+
+  useEffect(
+    () => () => {
+      if (toggleTimeoutRef.current) {
+        clearTimeout(toggleTimeoutRef.current)
+      }
+    },
+    []
+  )
 
   return (
     <aside id="session-list">
@@ -63,10 +90,17 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
             const accentColor = `hsl(${accentHue}, 75%, ${accentLightness}%)`
             const accentStrength = 0.12 + intensity * 0.35
 
+            const animationClass =
+              pendingToggle?.id === session.SessionId
+                ? pendingToggle.direction === 'to-reviewed'
+                  ? 'moving-reviewed'
+                  : 'moving-new'
+                : ''
+
             return (
               <div
                 key={session.SessionId + session.StartDateTime}
-                className={`session-item${isActive ? ' active' : ''}`}
+                className={`session-item${isActive ? ' active' : ''}${animationClass ? ` ${animationClass}` : ''}`}
                 style={{
                   '--message-accent': accentColor,
                   '--message-strength': accentStrength
@@ -88,18 +122,14 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
                       onClick={(event) => event.stopPropagation()}
                     >
                       <span className="toggle-label">Granskad</span>
-                      <div className="toggle-slider-wrapper">
-                        <input
-                          type="checkbox"
-                          checked={session.isReviewed}
-                          disabled={session.isReviewed}
-                          onChange={(event) => {
-                            event.stopPropagation()
-                            onMarkReviewed(session.SessionId)
-                          }}
-                        />
-                        <span className="toggle-slider" />
-                      </div>
+                      <input
+                        type="checkbox"
+                        checked={session.isReviewed}
+                        onChange={(event) => {
+                          event.stopPropagation()
+                          handleToggleReviewed(session)
+                        }}
+                      />
                     </label>
                   </div>
                 </div>

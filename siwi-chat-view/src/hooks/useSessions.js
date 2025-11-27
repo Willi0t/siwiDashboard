@@ -43,10 +43,10 @@ function useSessions() {
     setSelectedSession(session)
   }, [])
 
-  const handleMarkReviewed = useCallback((sessionId) => {
+  const handleMarkReviewed = useCallback((sessionId, isReviewed) => {
     setSessions((prevSessions) =>
       prevSessions.map((session) =>
-        session.SessionId === sessionId ? { ...session, isReviewed: true } : session
+        session.SessionId === sessionId ? { ...session, isReviewed } : session
       )
     )
   }, [])
