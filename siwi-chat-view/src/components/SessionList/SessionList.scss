@@ -20,6 +20,11 @@
 .session-item {
   --message-accent: #e6f2ff;
   --message-strength: 0.18;
+  --message-accent-strong: var(--message-accent);
+  --message-solid: 18%;
+  --message-fade: 18%;
+  --message-fade-color: color-mix(in srgb, var(--message-accent-strong) 70%, #fff);
+  --message-tail-color: #fff;
   position: relative;
   padding: 0.75rem 0.75rem 0.5rem 0.85rem;
   border: 1px solid var(--border-soft);
@@ -28,10 +33,10 @@
   font-size: 0.85rem;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--message-accent) calc(var(--message-strength) * 100%), #fff) 0%,
-    color-mix(in srgb, var(--message-accent) calc(var(--message-strength) * 100%), #fff)
-      var(--message-fill, 55%),
-    #fff calc(var(--message-fill, 55%) + 30%)
+    var(--message-accent-strong) 0%,
+    var(--message-accent-strong) var(--message-solid, 18%),
+    var(--message-fade-color) var(--message-fill, 55%),
+    var(--message-tail-color) calc(var(--message-fill, 55%) + var(--message-fade, 18%))
   );
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
   transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
