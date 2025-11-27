@@ -62,7 +62,7 @@ export function parseCsv(text) {
     rows.push({
       SessionId: sessionId,
       StartDateTime: start,
-      Turns: turns,
+      Messages: turns,
       SessionOutcome: outcome,
       ChatTranscript: transcript
     })

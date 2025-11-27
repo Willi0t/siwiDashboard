@@ -16,7 +16,7 @@ function ChatView({ session }) {
           </div>
           <div className="session-meta">
             <div>
-              <strong>Turns:</strong> <span>–</span>
+              <strong>Meddelanden:</strong> <span>–</span>
             </div>
             <div>
               <strong>Outcome:</strong> <span>–</span>
@@ -43,7 +43,7 @@ function ChatView({ session }) {
         </div>
         <div className="session-meta">
           <div>
-            <strong>Turns:</strong> <span>{session.Turns || '–'}</span>
+            <strong>Meddelanden:</strong> <span>{session.Messages || '–'}</span>
           </div>
           <div>
             <strong>Outcome:</strong> <span>{session.SessionOutcome || '–'}</span>
