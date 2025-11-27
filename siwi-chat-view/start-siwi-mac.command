@@ -1,29 +1,23 @@
 #!/bin/bash
 
-# Gå till den här filens mapp
+# Gå till mappen där filen ligger
 cd "$(dirname "$0")"
 
 echo "=============================="
-echo "  SIWI Chat Viewer Starter"
+echo "   Starting SIWI Chat Viewer"
 echo "=============================="
-echo
+echo ""
 
-# Installera dependencies
-echo "Installing dependencies (only slow first time)..."
+# Installera dependencies (går snabbt om det redan är gjort)
 npm install
-echo
 
-# Starta Vite dev-server i bakgrunden
-echo "Starting Vite development server..."
+# Starta Vite development server in background
 npm run dev &
 
-# Vänta en stund så servern hinner starta
-sleep 3
+# Vänta så servern hinner starta
+sleep 2
 
 # Öppna webbläsaren
-echo "Opening browser at http://localhost:5173 ..."
 open http://localhost:5173
 
-echo
-echo "Server running. Close Terminal window to stop it."
-echo
+echo "Server running. Close terminal to stop it."
