@@ -16,15 +16,16 @@
   border-radius: 12px;
   padding: 0.5rem 0.75rem;
   max-width: 70%;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border: 1px solid #e0e7f1;
 }
 
 .message.bot {
-  background: #ffffff;
+  background: #f9fbfd;
 }
 
 .message.user {
-  background: var(--user-message);
+  background: #eef3fb;
 }
 
 .message-role {

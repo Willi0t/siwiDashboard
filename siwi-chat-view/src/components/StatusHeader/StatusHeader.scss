@@ -7,8 +7,8 @@
   justify-content: space-between;
   gap: 1rem;
   overflow: hidden;
-  background: linear-gradient(120deg, #0f5ac7 0%, #0b93c9 55%, #0fd1a6 110%);
-  color: #f7fbff;
+  background: linear-gradient(135deg, #f4f7fb 0%, #e7eef7 85%);
+  color: #0d2b4d;
   isolation: isolate;
 
   &::after {
@@ -16,8 +16,8 @@
     position: absolute;
     inset: 10px 12px;
     border-radius: 16px;
-    background: rgba(255, 255, 255, 0.06);
-    filter: blur(18px);
+    background: rgba(255, 255, 255, 0.5);
+    filter: blur(22px);
     z-index: 0;
   }
 }
@@ -38,8 +38,8 @@
   font-weight: 800;
   letter-spacing: 0.06em;
   color: #0d2b4d;
-  background: linear-gradient(135deg, #fefefe, #cbe1ff);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(135deg, #ffffff, #dfe7f3);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
 .brand-copy {
@@ -65,7 +65,7 @@
 
 .brand-status {
   font-size: 0.82rem;
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .status-actions {
@@ -81,11 +81,11 @@
   gap: 0.4rem;
   padding: 0.55rem 0.75rem;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.18);
-  color: #062242;
+  background: #ffffff;
+  color: #0d2b4d;
   min-width: 180px;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+  border: 1px solid #d3ddea;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
 }
 
 .pulse-dot {
@@ -100,7 +100,7 @@
 .status-text {
   font-size: 0.82rem;
   font-weight: 700;
-  color: #f7fbff;
+  color: #0d2b4d;
 }
 
 .upload-button {
@@ -111,18 +111,20 @@
   gap: 0.5rem;
   padding: 0.6rem 1rem;
   border-radius: 12px;
-  background: #0d2b4d;
-  color: #eaf2ff;
+  background: #eef3fb;
+  color: #1f3f68;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.16);
-  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #d6dfed;
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease, color 120ms ease;
 }
 
 .upload-button:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.2);
-  background: #0f335d;
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
+  background: #e3eaf5;
+  color: #0f2848;
 }
 
 .upload-button input[type='file'] {
