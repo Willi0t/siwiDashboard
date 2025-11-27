@@ -25,7 +25,9 @@
 }
 
 .message.user {
-  background: #eef3fb;
+  background: linear-gradient(135deg, #e8f6ef 0%, #d6f0df 100%);
+  border-color: #c3e6d4;
+  color: #0f3d1f;
 }
 
 .message-role {
@@ -38,4 +40,8 @@
 .message-text {
   font-size: 0.85rem;
   white-space: pre-wrap;
+}
+
+.message.user .message-role {
+  color: #0f5132;
 }
