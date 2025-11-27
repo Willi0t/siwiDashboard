@@ -83,17 +83,22 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
                 <div className="session-stats">
                   <span className="message-count">{messageCount} meddelanden</span>
                   <div className="session-actions">
-                    <button
-                      type="button"
-                      className="review-button"
-                      onClick={(event) => {
-                        event.stopPropagation()
-                        onMarkReviewed(session.SessionId)
-                      }}
-                      disabled={session.isReviewed}
+                    <label
+                      className={`review-toggle${session.isReviewed ? ' checked' : ''}`}
+                      onClick={(event) => event.stopPropagation()}
                     >
-                      Granskad
-                    </button>
+                      <span className="toggle-label">Granskad</span>
+                      <input
+                        type="checkbox"
+                        checked={session.isReviewed}
+                        disabled={session.isReviewed}
+                        onChange={(event) => {
+                          event.stopPropagation()
+                          onMarkReviewed(session.SessionId)
+                        }}
+                      />
+                      <span className="toggle-slider" />
+                    </label>
                   </div>
                 </div>
               </div>
