@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import './App.css'
+import './App.scss'
 
 function parseLine(line) {
   const result = []
