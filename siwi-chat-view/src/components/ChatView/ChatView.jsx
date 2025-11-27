@@ -1,4 +1,5 @@
-import MessageList from './MessageList'
+import MessageList from '../MessageList/MessageList'
+import './ChatView.css'
 
 function ChatView({ session }) {
   if (!session) {

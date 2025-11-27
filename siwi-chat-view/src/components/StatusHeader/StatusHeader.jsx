@@ -1,3 +1,5 @@
+import './StatusHeader.css'
+
 function StatusHeader({ status, onFileChange }) {
   return (
     <header>

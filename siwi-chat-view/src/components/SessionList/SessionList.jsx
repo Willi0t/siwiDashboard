@@ -1,3 +1,5 @@
+import './SessionList.css'
+
 function SessionList({ sessions, onSelect, activeSessionId }) {
   if (!sessions.length) {
     return (
@@ -13,9 +15,7 @@ function SessionList({ sessions, onSelect, activeSessionId }) {
       <h2>Sessioner (filtrerade)</h2>
       <div id="session-items">
         {sessions.map((session) => {
-          const shortId = session.SessionId
-            ? `${session.SessionId.slice(0, 10)}...`
-            : 'Okänt ID'
+          const shortId = session.SessionId ? `${session.SessionId.slice(0, 10)}...` : 'Okänt ID'
           const isActive = session.SessionId === activeSessionId
 
           return (
