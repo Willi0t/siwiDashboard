@@ -16,16 +16,18 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
 
   const tabContent = {
     new: {
-      title: `Nya sessioner (${newSessions.length})`,
+      title: 'Nya sessioner',
+      count: newSessions.length,
       empty: 'Inga nya sessioner just nu.'
     },
     reviewed: {
-      title: `Granskade sessioner (${reviewedSessions.length})`,
+      title: 'Granskade sessioner',
+      count: reviewedSessions.length,
       empty: 'Inga granskade sessioner ännu.'
     }
   }
 
-  const { title, empty } = tabContent[activeTab]
+  const { title, count, empty } = tabContent[activeTab]
 
   const handleToggleReviewed = (session) => {
     const nextState = !session.isReviewed
@@ -55,7 +57,10 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
   return (
     <aside id="session-list">
       <div className="session-header">
-        <h2>{title}</h2>
+        <h2>
+          <span className="title-line">{title}</span>
+          <span className="session-count">{count} st</span>
+        </h2>
         <div className="session-tabs">
           <button
             type="button"
