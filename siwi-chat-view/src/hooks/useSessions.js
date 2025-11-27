@@ -27,7 +27,9 @@ function useSessions() {
         (row) => row.Messages > 2 && row.ChatTranscript && row.ChatTranscript.trim() !== ''
       )
 
-      setSessions(filtered)
+      const mappedWithStatus = filtered.map((session) => ({ ...session, isReviewed: false }))
+
+      setSessions(mappedWithStatus)
       setSelectedSession(null)
       setStatus(
         `Hittade ${filtered.length} filtrerade sessioner (Meddelanden > 2). Klicka på en session för att visa chatten.`
@@ -41,7 +43,15 @@ function useSessions() {
     setSelectedSession(session)
   }, [])
 
-  return { status, sessions, selectedSession, handleFileChange, handleSelectSession }
+  const handleMarkReviewed = useCallback((sessionId) => {
+    setSessions((prevSessions) =>
+      prevSessions.map((session) =>
+        session.SessionId === sessionId ? { ...session, isReviewed: true } : session
+      )
+    )
+  }, [])
+
+  return { status, sessions, selectedSession, handleFileChange, handleSelectSession, handleMarkReviewed }
 }
 
 export default useSessions
