@@ -87,11 +87,14 @@ main {
   padding: 1rem;
   overflow-y: auto;
   background: #fafafa;
+  display: flex;
+  justify-content: center;
 }
 
 .message-row {
   display: flex;
   margin-bottom: 0.5rem;
+  justify-content: flex-end;
 }
 
 .message {
@@ -99,14 +102,13 @@ main {
   padding: 0.5rem 0.75rem;
   max-width: 70%;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-left: auto;
 
   &.bot {
-    margin-right: auto;
     background: #ffffff;
   }
 
   &.user {
-    margin-left: auto;
     background: $user-message;
   }
 }
@@ -141,4 +143,7 @@ input[type='file'] {
 .messages-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
 }
