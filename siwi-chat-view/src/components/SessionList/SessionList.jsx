@@ -23,6 +23,8 @@ function SessionList({ sessions, onSelect, activeSessionId }) {
           const accentLightness = 95 - intensity * 25
           const accentColor = `hsl(${accentHue}, 75%, ${accentLightness}%)`
           const accentStrength = 0.12 + intensity * 0.35
+          const fillProgress = Math.min(Math.max((messageCount - 4) / 26, 0), 1)
+          const accentFill = 12 + fillProgress * 43
 
           return (
             <div
@@ -30,7 +32,8 @@ function SessionList({ sessions, onSelect, activeSessionId }) {
               className={`session-item${isActive ? ' active' : ''}`}
               style={{
                 '--message-accent': accentColor,
-                '--message-strength': accentStrength
+                '--message-strength': accentStrength,
+                '--message-fill': `${accentFill}%`
               }}
               onClick={() => onSelect(session)}
             >

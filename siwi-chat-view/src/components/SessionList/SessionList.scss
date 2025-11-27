@@ -28,8 +28,10 @@
   font-size: 0.85rem;
   background: linear-gradient(
     90deg,
-    color-mix(in srgb, var(--message-accent) calc(var(--message-strength) * 100%), #fff),
-    #fff 55%
+    color-mix(in srgb, var(--message-accent) calc(var(--message-strength) * 100%), #fff) 0%,
+    color-mix(in srgb, var(--message-accent) calc(var(--message-strength) * 100%), #fff)
+      var(--message-fill, 55%),
+    #fff calc(var(--message-fill, 55%) + 30%)
   );
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
   transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
@@ -39,7 +41,7 @@
   content: '';
   position: absolute;
   inset: 0 auto 0 0;
-  width: 6px;
+  width: clamp(4px, calc(4px + var(--message-strength) * 18px), 12px);
   border-radius: 12px 0 0 12px;
   background: color-mix(in srgb, var(--message-accent) 70%, #3c7bd9 30%);
   opacity: calc(0.8 * var(--message-strength));
