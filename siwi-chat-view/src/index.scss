@@ -1,0 +1,59 @@
+$font-stack: system-ui, Avenir, Helvetica, Arial, sans-serif;
+$primary: #646cff;
+$primary-hover: #535bf2;
+$body-bg: #242424;
+$text-color: rgba(255, 255, 255, 0.87);
+$light-bg: #ffffff;
+$light-text: #213547;
+$light-button: #f9f9f9;
+
+:root {
+  font-family: $font-stack;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: $text-color;
+  background-color: $body-bg;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: $primary;
+  text-decoration: inherit;
+
+  &:hover {
+    color: $primary-hover;
+  }
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: $light-text;
+    background-color: $light-bg;
+  }
+
+  a:hover {
+    color: lighten($primary-hover, 10%);
+  }
+
+  button {
+    background-color: $light-button;
+  }
+}
