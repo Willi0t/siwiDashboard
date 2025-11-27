@@ -1,7 +1,8 @@
-#session-list {
+#session-list { 
   width: 320px;
   border-right: 1px solid var(--border-color);
   overflow-y: auto;
+  background: #fdfefe;
 }
 
 #session-list h2 {
@@ -12,21 +13,86 @@
 #session-items {
   display: flex;
   flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 0.75rem 1rem;
 }
 
 .session-item {
-  padding: 0.5rem 0.75rem;
-  border-bottom: 1px solid var(--border-soft);
+  --message-accent: #e6f2ff;
+  --message-strength: 0.18;
+  position: relative;
+  padding: 0.75rem 0.75rem 0.5rem 0.85rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
   cursor: pointer;
   font-size: 0.85rem;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--message-accent) calc(var(--message-strength) * 100%), #fff),
+    #fff 55%
+  );
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  transition: transform 120ms ease, box-shadow 120ms ease, border-color 120ms ease;
+}
+
+.session-item::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  border-radius: 12px 0 0 12px;
+  background: color-mix(in srgb, var(--message-accent) 70%, #3c7bd9 30%);
+  opacity: calc(0.8 * var(--message-strength));
 }
 
 .session-item:hover {
-  background: var(--hover-background);
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--message-accent) 45%, var(--border-soft));
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
 }
 
 .session-item.active {
-  background: var(--active-background);
+  border-color: color-mix(in srgb, var(--message-accent) 65%, var(--border-color));
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+.session-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.session-id strong {
+  font-size: 0.95rem;
+}
+
+.session-outcome {
+  background: #eef5ff;
+  color: #1f4d8a;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.session-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.message-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: color-mix(in srgb, var(--message-accent) 60%, #e6f4ea);
+  color: #0f5132;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-weight: 600;
 }
 
 .empty-list {

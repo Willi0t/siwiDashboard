@@ -24,13 +24,13 @@ function useSessions() {
 
       const allRows = parseCsv(text)
       const filtered = allRows.filter(
-        (row) => row.Turns > 2 && row.ChatTranscript && row.ChatTranscript.trim() !== ''
+        (row) => row.Messages > 2 && row.ChatTranscript && row.ChatTranscript.trim() !== ''
       )
 
       setSessions(filtered)
       setSelectedSession(null)
       setStatus(
-        `Hittade ${filtered.length} filtrerade sessioner (Turns > 2). Klicka på en session för att visa chatten.`
+        `Hittade ${filtered.length} filtrerade sessioner (Meddelanden > 2). Klicka på en session för att visa chatten.`
       )
     }
 
