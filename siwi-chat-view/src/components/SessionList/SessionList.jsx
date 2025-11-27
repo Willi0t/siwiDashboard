@@ -88,16 +88,18 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
                       onClick={(event) => event.stopPropagation()}
                     >
                       <span className="toggle-label">Granskad</span>
-                      <input
-                        type="checkbox"
-                        checked={session.isReviewed}
-                        disabled={session.isReviewed}
-                        onChange={(event) => {
-                          event.stopPropagation()
-                          onMarkReviewed(session.SessionId)
-                        }}
-                      />
-                      <span className="toggle-slider" />
+                      <div className="toggle-slider-wrapper">
+                        <input
+                          type="checkbox"
+                          checked={session.isReviewed}
+                          disabled={session.isReviewed}
+                          onChange={(event) => {
+                            event.stopPropagation()
+                            onMarkReviewed(session.SessionId)
+                          }}
+                        />
+                        <span className="toggle-slider" />
+                      </div>
                     </label>
                   </div>
                 </div>
