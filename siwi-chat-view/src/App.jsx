@@ -5,7 +5,14 @@ import './App.scss'
 import useSessions from './hooks/useSessions'
 
 function App() {
-  const { status, sessions, selectedSession, handleFileChange, handleSelectSession } = useSessions()
+  const {
+    status,
+    sessions,
+    selectedSession,
+    handleFileChange,
+    handleSelectSession,
+    handleMarkReviewed
+  } = useSessions()
 
   return (
     <div className="app-shell">
@@ -15,6 +22,7 @@ function App() {
           sessions={sessions}
           onSelect={handleSelectSession}
           activeSessionId={selectedSession?.SessionId}
+          onMarkReviewed={handleMarkReviewed}
         />
         <ChatView session={selectedSession} />
       </main>
