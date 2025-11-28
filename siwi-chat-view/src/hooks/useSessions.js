@@ -24,7 +24,7 @@ function useSessions() {
 
       const allRows = parseCsv(text)
       const filtered = allRows.filter(
-        (row) => row.Messages > 2 && row.ChatTranscript && row.ChatTranscript.trim() !== ''
+        (row) => row.Messages > 3 && row.ChatTranscript && row.ChatTranscript.trim() !== ''
       )
 
       const mappedWithStatus = filtered.map((session) => ({ ...session, isReviewed: false }))
@@ -32,7 +32,7 @@ function useSessions() {
       setSessions(mappedWithStatus)
       setSelectedSession(null)
       setStatus(
-        `Hittade ${filtered.length} filtrerade sessioner (Meddelanden > 2). Klicka på en session för att visa chatten.`
+        `Hittade ${filtered.length} filtrerade sessioner (Meddelanden > 3). Klicka på en session för att visa chatten.`
       )
     }
 
