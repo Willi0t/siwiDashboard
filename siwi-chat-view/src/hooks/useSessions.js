@@ -1,57 +1,95 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { parseCsv } from '../utils/csvUtils'
 
 const initialStatus = 'Ladda upp din ursprungliga CSV-export för att börja.'
 
 function useSessions() {
-  const [status, setStatus] = useState(initialStatus)
-  const [sessions, setSessions] = useState([])
-  const [selectedSession, setSelectedSession] = useState(null)
+  const [statusOverride, setStatusOverride] = useState(initialStatus)
+  const [rawSessions, setRawSessions] = useState([])
+  const [messageThreshold, setMessageThreshold] = useState(3)
+  const [selectedSessionId, setSelectedSessionId] = useState(null)
+  const [reviewStatuses, setReviewStatuses] = useState({})
 
   const handleFileChange = useCallback((event) => {
     const file = event.target.files?.[0]
     if (!file) return
 
-    setStatus(`Laddar ${file.name}...`)
+    setStatusOverride(`Laddar ${file.name}...`)
     const reader = new FileReader()
 
     reader.onload = (e) => {
       const text = e.target?.result
       if (typeof text !== 'string') {
-        setStatus('Kunde inte läsa filen.')
+        setStatusOverride('Kunde inte läsa filen.')
         return
       }
 
-      const allRows = parseCsv(text)
-      const filtered = allRows.filter(
-        (row) => row.Messages > 3 && row.ChatTranscript && row.ChatTranscript.trim() !== ''
+      const cleanedRows = parseCsv(text).filter(
+        (row) => row.ChatTranscript && row.ChatTranscript.trim() !== ''
       )
 
-      const mappedWithStatus = filtered.map((session) => ({ ...session, isReviewed: false }))
+      if (!cleanedRows.length) {
+        setRawSessions([])
+        setSelectedSessionId(null)
+        setReviewStatuses({})
+        setStatusOverride('Inga konversationer hittades i filen.')
+        return
+      }
 
-      setSessions(mappedWithStatus)
-      setSelectedSession(null)
-      setStatus(
-        `Hittade ${filtered.length} filtrerade sessioner (Meddelanden > 3). Klicka på en session för att visa chatten.`
-      )
+      setRawSessions(cleanedRows)
+      setSelectedSessionId(null)
+      setReviewStatuses({})
+      setStatusOverride(null)
     }
 
     reader.readAsText(file, 'utf-8')
   }, [])
 
   const handleSelectSession = useCallback((session) => {
-    setSelectedSession(session)
+    setSelectedSessionId(session.SessionId)
   }, [])
 
   const handleMarkReviewed = useCallback((sessionId, isReviewed) => {
-    setSessions((prevSessions) =>
-      prevSessions.map((session) =>
-        session.SessionId === sessionId ? { ...session, isReviewed } : session
-      )
-    )
+    setReviewStatuses((prevStatuses) => ({ ...prevStatuses, [sessionId]: isReviewed }))
   }, [])
 
-  return { status, sessions, selectedSession, handleFileChange, handleSelectSession, handleMarkReviewed }
+  const handleThresholdChange = useCallback((value) => {
+    setMessageThreshold(Math.max(0, value))
+  }, [])
+
+  const threshold = Number(messageThreshold) || 0
+
+  const sessions = useMemo(() => {
+    const filtered = rawSessions.filter((row) => Number(row.Messages) > threshold)
+
+    return filtered.map((session) => ({
+      ...session,
+      isReviewed: reviewStatuses[session.SessionId] ?? false
+    }))
+  }, [rawSessions, reviewStatuses, threshold])
+
+  const selectedSession = useMemo(
+    () => sessions.find((session) => session.SessionId === selectedSessionId) ?? null,
+    [selectedSessionId, sessions]
+  )
+
+  const status = useMemo(() => {
+    if (statusOverride) return statusOverride
+    if (!rawSessions.length) return initialStatus
+
+    return `Hittade ${sessions.length} filtrerade sessioner (Meddelanden > ${threshold}). Klicka på en session för att visa chatten.`
+  }, [rawSessions.length, sessions.length, statusOverride, threshold])
+
+  return {
+    status,
+    sessions,
+    selectedSession,
+    messageThreshold,
+    handleFileChange,
+    handleSelectSession,
+    handleMarkReviewed,
+    handleThresholdChange
+  }
 }
 
 export default useSessions
