@@ -9,6 +9,8 @@ function App() {
     status,
     sessions,
     selectedSession,
+    messageThreshold,
+    handleThresholdChange,
     handleFileChange,
     handleSelectSession,
     handleMarkReviewed
@@ -16,7 +18,12 @@ function App() {
 
   return (
     <div className="app-shell">
-      <StatusHeader status={status} onFileChange={handleFileChange} />
+      <StatusHeader
+        status={status}
+        messageThreshold={messageThreshold}
+        onThresholdChange={handleThresholdChange}
+        onFileChange={handleFileChange}
+      />
       <main>
         <SessionList
           sessions={sessions}
