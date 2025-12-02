@@ -284,11 +284,9 @@ The following tools were used in the construction of the project:
 
 ## Author
 
-<a href="https://www.linkedin.com/in/william-sinclair/](https://www.linkedin.com/in/william-sinclair-2bab18153">
- <img style="border-radius: 50%;" src="https://media.licdn.com/dms/image/v2/D4D03AQG8AGYQBQOjZQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1708626809092?e=1742428800&v=beta&t=aJjC3LbvnnrjXVTkhzlr2JYDwDGBq6vIk4n3N0m5hvQ" width="70px;" alt="William Sinclair"/>
- <br />
- <p><b>William Sinclair</b></p></a>
-
+<a href="https://github.com/Willi0t">
+  <p><b>William Sinclair</b></p>
+</a>
 
 ---
 
