@@ -69,9 +69,38 @@ function useSessions() {
     setSelectedSession(session)
   }, [])
 
-  const handleMarkReviewed = useCallback((sessionId, isReviewed) => {
-    setReviewStatus((prevStatus) => ({ ...prevStatus, [sessionId]: isReviewed }))
-  }, [])
+  const handleMarkReviewed = useCallback(
+    (sessionId, isReviewed) => {
+      setReviewStatus((prevStatus) => {
+        const nextStatus = { ...prevStatus, [sessionId]: isReviewed }
+
+        if (isReviewed && selectedSession?.SessionId === sessionId) {
+          const updatedSessions = applyFilter(allSessions, messageThreshold, nextStatus)
+          const currentIndex = updatedSessions.findIndex(
+            (session) => session.SessionId === sessionId
+          )
+
+          let nextSession = null
+
+          if (currentIndex !== -1) {
+            nextSession =
+              updatedSessions
+                .slice(currentIndex + 1)
+                .find((session) => !session.isReviewed) ||
+              updatedSessions.slice(0, currentIndex).find((session) => !session.isReviewed) ||
+              null
+          } else {
+            nextSession = updatedSessions.find((session) => !session.isReviewed) || null
+          }
+
+          setSelectedSession(nextSession)
+        }
+
+        return nextStatus
+      })
+    },
+    [allSessions, applyFilter, messageThreshold, selectedSession]
+  )
 
   const handleThresholdChange = useCallback((value) => {
     const parsed = Number(value)
