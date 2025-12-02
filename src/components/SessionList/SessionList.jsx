@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, useCallback } from 'react'
 import './SessionList.scss'
 
 function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
@@ -29,21 +29,22 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
 
   const { title, count, empty } = tabContent[activeTab]
 
-  const handleToggleReviewed = (session) => {
-    const nextState = !session.isReviewed
+  const handleToggleReviewed = useCallback(
+    (session, nextState = !session.isReviewed) => {
+      if (toggleTimeoutRef.current) {
+        clearTimeout(toggleTimeoutRef.current)
+      }
 
-    if (toggleTimeoutRef.current) {
-      clearTimeout(toggleTimeoutRef.current)
-    }
+      setPendingToggle({ id: session.SessionId, direction: nextState ? 'to-reviewed' : 'to-new' })
 
-    setPendingToggle({ id: session.SessionId, direction: nextState ? 'to-reviewed' : 'to-new' })
-
-    toggleTimeoutRef.current = setTimeout(() => {
-      onMarkReviewed(session.SessionId, nextState)
-      setPendingToggle(null)
-      toggleTimeoutRef.current = null
-    }, 220)
-  }
+      toggleTimeoutRef.current = setTimeout(() => {
+        onMarkReviewed(session.SessionId, nextState)
+        setPendingToggle(null)
+        toggleTimeoutRef.current = null
+      }, 220)
+    },
+    [onMarkReviewed]
+  )
 
   useEffect(
     () => () => {
@@ -53,6 +54,30 @@ function SessionList({ sessions, onSelect, activeSessionId, onMarkReviewed }) {
     },
     []
   )
+
+  useEffect(() => {
+    const handleEnterPress = (event) => {
+      if (event.key !== 'Enter') return
+
+      const target = event.target
+      if (target instanceof HTMLElement) {
+        const tagName = target.tagName.toLowerCase()
+        const isInteractiveElement =
+          target.isContentEditable || ['input', 'textarea', 'select', 'button'].includes(tagName)
+
+        if (isInteractiveElement) return
+      }
+
+      const activeSession = sessions.find((session) => session.SessionId === activeSessionId)
+
+      if (!activeSession || activeSession.isReviewed) return
+
+      handleToggleReviewed(activeSession, true)
+    }
+
+    window.addEventListener('keydown', handleEnterPress)
+    return () => window.removeEventListener('keydown', handleEnterPress)
+  }, [activeSessionId, sessions, handleToggleReviewed])
 
   return (
     <aside id="session-list">
