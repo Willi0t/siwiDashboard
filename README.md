@@ -113,11 +113,11 @@ These columns must exist in the header row, and their names must match **exactly
 
 The app simply skips these fields.
 
-##Minimum Required Structure
+---
+
+## Minimum Required Structure
 
 Your CSV must contain **at least** these columns:
-
----
 
 **Example row (shortened):**
 
