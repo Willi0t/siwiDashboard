@@ -1,9 +1,5 @@
 <h1 align="center">
-    <img alt="project" title="#About" src="./assets/banner.jpg" />
-</h1>
-
-<h1 align="center">
-  <a href="#">Session insights</a>
+  <img width="511" height="145" alt="project" src="https://github.com/user-attachments/assets/868c1546-a918-4739-a172-8638a4653d6d" />
 </h1>
 
 <p align="center">
