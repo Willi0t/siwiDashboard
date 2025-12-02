@@ -40,7 +40,7 @@
 
 ## About
 
-PROJECT - SIWi Chat Viewer was created to solve a missing gap in our workflow: there was no tool to read or review Copilot chat transcripts. Our AI trainers needed a clear way to analyze conversations and identify areas for improvement. This project provides a simple, fast, and dedicated interface for exploring session data, reviewing messages, and supporting continuous quality improvements of our internal Copilot chatbot.
+SIWi Chat Viewer was created to solve a missing gap in our workflow: there was no tool to read or review Copilot chat transcripts. Our AI trainers needed a clear way to analyze conversations and identify areas for improvement. This project provides a simple, fast, and dedicated interface for exploring session data, reviewing messages, and supporting continuous quality improvements of our internal Copilot chatbot.
 
 ---
 
