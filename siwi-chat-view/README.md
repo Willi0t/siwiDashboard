@@ -1,16 +1,52 @@
-# React + Vite
+# SIWi Chat Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SIWi Chat Viewer is a lightweight React + Vite dashboard for exploring chat session exports. Upload a CSV export, filter conversations by message volume, and review transcripts in a clean two-pane layout. The UI is tailored for quickly scanning new sessions, marking them as reviewed, and drilling into the message flow of a selected conversation.
 
-Currently, two official plugins are available:
+## Key features
+- **CSV import first workflow** – upload a CSV export to populate the dashboard instantly.
+- **Smart filtering** – only sessions with transcripts and more messages than your threshold are shown; adjust the threshold inline.
+- **Review states** – toggle sessions between **Nya** (new) and **Granskade** (reviewed) to track your progress.
+- **Session drilldown** – pick a session to see its metadata and a formatted chat transcript with user/bot roles highlighted.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
+- Node.js 18+
+- npm (bundled with Node.js)
 
-## React Compiler
+## Getting started
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+3. Open the Vite dev URL shown in the terminal (typically http://localhost:5173).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+To create an optimized build, run:
+```bash
+npm run build
+```
+You can preview the production bundle locally with:
+```bash
+npm run preview
+```
 
-## Expanding the ESLint configuration
+## CSV format
+The viewer expects a CSV with the following headers (matching a standard SIWi export):
+- `SessionId`
+- `StartDateTime(UTC)`
+- `Turns` (parsed as message count)
+- `SessionOutcome`
+- `ChatTranscript` (semicolon-delimited messages, e.g., `User says: Hello; Bot says: Hi!`)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Rows lacking both `SessionId` and `ChatTranscript` are ignored. Only sessions with a transcript and more messages than the active threshold are displayed.
+
+## Using the app
+1. Click **Importera CSV** in the header and select your export file.
+2. Adjust **Meddelanden >** in the status pill to filter out shorter chats (default is 3 messages).
+3. Browse **Nya sessioner**; click a row to view its details and transcript.
+4. Toggle **Granskad** to move a session between **Nya** and **Granskade** tabs.
+5. Review the transcript in the right pane; bot/user messages are visually separated for readability.
+
+Happy reviewing!
